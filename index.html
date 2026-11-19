@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VÉRA — Minimalist Luxury Fashion India</title>
+    <meta name="description" content="VÉRA India — Editorial luxury womenswear, menswear, childrenswear, and fine fragrance." />
+    <meta property="og:title" content="VÉRA — Minimalist Luxury Fashion India" />
+    <meta property="og:description" content="Editorial luxury womenswear, menswear, childrenswear, and fine fragrance." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Sticky Transparent-to-White Header -->
+    <header id="veraHeader" class="vera-header header-transparent">
+      <div class="d-flex align-items-center gap-3">
+        <button class="vera-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#veraMenuDrawer" aria-label="Open menu">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <a href="index.html" class="vera-brand">VÉRA</a>
+      </div>
+
+      <nav class="vera-nav-links d-none d-lg-flex" aria-label="Primary categories">
+        <a href="products.html?category=WOMAN" class="vera-nav-link">Woman</a>
+        <a href="products.html?category=MAN" class="vera-nav-link">Man</a>
+        <a href="products.html?category=KIDS" class="vera-nav-link">Kids</a>
+        <a href="products.html?category=PERFUMES" class="vera-nav-link">Perfumes</a>
+      </nav>
+
+      <div class="vera-header-actions">
+        <button type="button" class="vera-icon-btn" data-open-search aria-label="Search catalog">
+          <i class="bi bi-search"></i>
+          <span class="d-none d-md-inline">Search</span>
+        </button>
+        <a href="account.html" class="vera-icon-btn" aria-label="Account">
+          <i class="bi bi-person"></i>
+          <span class="d-none d-md-inline">Account</span>
+        </a>
+        <a href="cart.html" class="vera-icon-btn" aria-label="Shopping Bag">
+          <i class="bi bi-bag"></i>
+          <span>Bag (<span data-cart-badge>0</span>)</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Slide-out Category Drawer -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="veraMenuDrawer" aria-labelledby="veraMenuDrawerLabel">
+      <div class="offcanvas-header border-bottom border-vera px-4 py-3">
+        <span class="vera-brand fs-5" id="veraMenuDrawerLabel">VÉRA</span>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+        <div>
+          <div class="font-display ls-wide text-muted-vera mb-3" style="font-size:10px;">Collections</div>
+          <ul class="list-unstyled d-flex flex-column gap-3 mb-5">
+            <li><a href="products.html" class="text-decoration-none text-black font-display ls-editorial fs-6">All Collections</a></li>
+            <li><a href="products.html?category=WOMAN" class="text-decoration-none text-black font-display ls-editorial fs-6">Woman</a></li>
+            <li><a href="products.html?category=MAN" class="text-decoration-none text-black font-display ls-editorial fs-6">Man</a></li>
+            <li><a href="products.html?category=KIDS" class="text-decoration-none text-black font-display ls-editorial fs-6">Kids</a></li>
+            <li><a href="products.html?category=PERFUMES" class="text-decoration-none text-black font-display ls-editorial fs-6">Perfumes</a></li>
+          </ul>
+          <div class="border-top border-vera pt-4">
+            <ul class="list-unstyled d-flex flex-column gap-2">
+              <li><a href="account.html" class="text-decoration-none text-black small ls-editorial font-display">Account &amp; Orders</a></li>
+              <li><a href="cart.html" class="text-decoration-none text-black small ls-editorial font-display">Shopping Bag</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-top border-vera pt-3">
+          <a href="admin-dashboard.html" class="btn btn-vera-outline w-100">Atelier Admin Panel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="veraSearchOverlay" class="vera-search-overlay" role="dialog" aria-label="Search VÉRA catalog">
+      <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="font-display ls-wide small text-muted-vera">Search VÉRA Archive</span>
+          <button type="button" class="btn-close" data-close-search aria-label="Close search"></button>
+        </div>
+        <input type="search" id="veraSearchInput" class="vera-search-input mb-4" placeholder="SEARCH BLAZER, SILK, SANTAL, TRENCH..." />
+        <div id="veraSearchResults" class="row g-4"></div>
+      </div>
+    </div>
+
+    <main>
+      <!-- Full-Bleed Hero Lookbook -->
+      <section class="vera-hero">
+        <img
+          src="/src/assets/images/hero_vera_campaign_1794969110939.jpg"
+          alt="VÉRA Autumn Winter 2026 Tailored Wool Campaign"
+          class="vera-hero-img"
+          referrerpolicy="no-referrer"
+          onerror="VERA.handleImgError(this, 'VÉRA Campaign 2026')"
+        />
+        <div class="vera-hero-scrim">
+          <div class="container-fluid px-0">
+            <p class="vera-hero-subtitle mb-2">Autumn / Winter Editorial · India</p>
+            <h1 class="vera-hero-title mb-4">Architectural Tailoring &amp; Monolith Silhouette</h1>
+            <a href="products.html" class="btn btn-vera-hero">Explore Collection</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Curated Seasonal Department Grid -->
+      <section class="container-fluid px-3 px-md-5 py-5 my-3">
+        <div class="d-flex justify-content-between align-items-end border-bottom border-vera pb-3 mb-4">
+          <div>
+            <div class="font-display ls-wide text-muted-vera" style="font-size:10px;">Editorial Selection</div>
+            <h2 class="font-display ls-editorial fs-5 fw-normal mb-0 mt-1">Department Lookbook</h2>
+          </div>
+          <a href="products.html" class="font-display ls-editorial text-black text-decoration-none" style="font-size:11px;">View All Pieces <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-4">
+            <a href="products.html?category=WOMAN" class="editorial-split-card">
+              <div class="editorial-split-media">
+                <img src="/src/assets/images/woman_ivory_blazer_1794969112025.jpg" alt="VÉRA Woman Tailoring" referrerpolicy="no-referrer" />
+              </div>
+              <div class="p-3 d-flex justify-content-between align-items-center border-top border-vera">
+                <span class="font-display ls-editorial" style="font-size:12px;">Woman · Winter Tailoring</span>
+                <i class="bi bi-arrow-right"></i>
+              </div>
+            </a>
+          </div>
+          <div class="col-12 col-md-4">
+            <a href="products.html?category=MAN" class="editorial-split-card">
+              <div class="editorial-split-media">
+                <img src="/src/assets/images/man_charcoal_overcoat_1794969147414.jpg" alt="VÉRA Man Cashmere Outerwear" referrerpolicy="no-referrer" />
+              </div>
+              <div class="p-3 d-flex justify-content-between align-items-center border-top border-vera">
+                <span class="font-display ls-editorial" style="font-size:12px;">Man · Cashmere Outerwear</span>
+                <i class="bi bi-arrow-right"></i>
+              </div>
+            </a>
+          </div>
+          <div class="col-12 col-md-4">
+            <a href="products.html?category=PERFUMES" class="editorial-split-card">
+              <div class="editorial-split-media">
+                <img src="/src/assets/images/perfume_santal_flacon_1794969131865.jpg" alt="VÉRA Santal 04 Fragrance" referrerpolicy="no-referrer" />
+              </div>
+              <div class="p-3 d-flex justify-content-between align-items-center border-top border-vera">
+                <span class="font-display ls-editorial" style="font-size:12px;">Perfumes · Santal 04 Extrait</span>
+                <i class="bi bi-arrow-right"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- New Arrivals Dynamic Grid (Synced from localStorage) -->
+      <section class="container-fluid px-3 px-md-5 py-4">
+        <div class="d-flex justify-content-between align-items-end border-bottom border-vera pb-3 mb-4">
+          <div>
+            <div class="font-display ls-wide text-muted-vera" style="font-size:10px;">Live Inventory</div>
+            <h2 class="font-display ls-editorial fs-5 fw-normal mb-0 mt-1">New Arrivals</h2>
+          </div>
+          <a href="products.html" class="font-display ls-editorial text-black text-decoration-none" style="font-size:11px;">Shop Full Catalog <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+        <div id="homeFeaturedGrid" class="row g-4"></div>
+      </section>
+
+      <!-- Secondary Atelier Banner -->
+      <section class="container-fluid px-3 px-md-5 pt-5">
+        <div class="editorial-banner-wide border border-vera">
+          <img
+            src="/src/assets/images/editorial_atelier_banner_1794969110334.jpg"
+            alt="VÉRA Atelier Craftsmanship Studio"
+            referrerpolicy="no-referrer"
+          />
+          <div class="editorial-banner-overlay">
+            <div>
+              <p class="vera-hero-subtitle mb-2">Atelier Series · Mumbai &amp; Milan</p>
+              <h2 class="font-display ls-editorial text-white fs-3 fw-normal text-balance mb-3" style="max-width:520px;">
+                Natural Fibres, Unlined Precision &amp; Timeless Form
+              </h2>
+              <a href="products.html?category=KIDS" class="btn btn-vera-hero me-2">Discover Kids</a>
+              <a href="products.html" class="btn btn-vera-outline text-white border-white">View All</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Minimalist Footer -->
+    <footer class="vera-footer">
+      <div class="container-fluid px-3 px-md-5">
+        <div class="row g-4 pb-4 border-bottom border-vera">
+          <div class="col-12 col-md-4">
+            <div class="vera-brand mb-3">VÉRA</div>
+            <p class="small text-muted-vera mb-0" style="max-width: 320px;">
+              Minimalist luxury apparel &amp; fine fragrance curated for India. Complimentary pan-India shipping on orders above ₹ 5,000.
+            </p>
+          </div>
+          <div class="col-6 col-md-2">
+            <div class="vera-footer-heading">Collections</div>
+            <a href="products.html?category=WOMAN" class="vera-footer-link">Woman</a>
+            <a href="products.html?category=MAN" class="vera-footer-link">Man</a>
+            <a href="products.html?category=KIDS" class="vera-footer-link">Kids</a>
+            <a href="products.html?category=PERFUMES" class="vera-footer-link">Perfumes</a>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="vera-footer-heading">Client Care</div>
+            <a href="account.html" class="vera-footer-link">My Account &amp; Orders</a>
+            <a href="cart.html" class="vera-footer-link">Shopping Bag &amp; Checkout</a>
+            <a href="products.html" class="vera-footer-link">Indian Sizing Guide</a>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="vera-footer-heading">Atelier Operations</div>
+            <a href="admin-dashboard.html" class="vera-footer-link">Admin Console Dashboard</a>
+            <a href="admin-products.html" class="vera-footer-link">Manage Inventory</a>
+            <a href="admin-orders.html" class="vera-footer-link">Order Fulfillment</a>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center pt-4 gap-2 small text-muted-vera">
+          <span>© 2026 VÉRA Fashion India Pvt. Ltd. All rights reserved.</span>
+          <span class="font-display ls-editorial" style="font-size:10px;">India · INR (₹) · GST Registered</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('homeFeaturedGrid');
+        if (!grid) return;
+        const products = VERA.getProducts().slice(0, 4);
+        grid.innerHTML = products
+          .map((p) => '<div class="col-6 col-lg-3">' + VERA.renderProductCardHTML(p) + '</div>')
+          .join('');
+      });
+    </script>
+  </body>
+</html>

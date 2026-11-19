@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VÉRA — Account &amp; Orders</title>
+    <meta name="description" content="Manage your VÉRA profile, Indian delivery addresses, saved wishlist, and live order history." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="page-offset">
+    <header id="veraHeader" class="vera-header">
+      <div class="d-flex align-items-center gap-3">
+        <button class="vera-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#veraMenuDrawer" aria-label="Open menu">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <a href="index.html" class="vera-brand">VÉRA</a>
+      </div>
+
+      <nav class="vera-nav-links d-none d-lg-flex">
+        <a href="products.html?category=WOMAN" class="vera-nav-link">Woman</a>
+        <a href="products.html?category=MAN" class="vera-nav-link">Man</a>
+        <a href="products.html?category=KIDS" class="vera-nav-link">Kids</a>
+        <a href="products.html?category=PERFUMES" class="vera-nav-link">Perfumes</a>
+      </nav>
+
+      <div class="vera-header-actions">
+        <button type="button" class="vera-icon-btn" data-open-search aria-label="Search">
+          <i class="bi bi-search"></i>
+          <span class="d-none d-md-inline">Search</span>
+        </button>
+        <a href="account.html" class="vera-icon-btn">
+          <i class="bi bi-person"></i>
+          <span class="d-none d-md-inline">Account</span>
+        </a>
+        <a href="cart.html" class="vera-icon-btn">
+          <i class="bi bi-bag"></i>
+          <span>Bag (<span data-cart-badge>0</span>)</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="veraMenuDrawer">
+      <div class="offcanvas-header border-bottom border-vera px-4 py-3">
+        <span class="vera-brand fs-5">VÉRA</span>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+        <ul class="list-unstyled d-flex flex-column gap-3">
+          <li><a href="products.html" class="text-decoration-none text-black font-display ls-editorial fs-6">All Collections</a></li>
+          <li><a href="products.html?category=WOMAN" class="text-decoration-none text-black font-display ls-editorial fs-6">Woman</a></li>
+          <li><a href="products.html?category=MAN" class="text-decoration-none text-black font-display ls-editorial fs-6">Man</a></li>
+          <li><a href="products.html?category=KIDS" class="text-decoration-none text-black font-display ls-editorial fs-6">Kids</a></li>
+          <li><a href="products.html?category=PERFUMES" class="text-decoration-none text-black font-display ls-editorial fs-6">Perfumes</a></li>
+        </ul>
+        <div class="border-top border-vera pt-3">
+          <a href="admin-dashboard.html" class="btn btn-vera-outline w-100">Atelier Admin Panel</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="veraSearchOverlay" class="vera-search-overlay">
+      <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="font-display ls-wide small text-muted-vera">Search VÉRA Archive</span>
+          <button type="button" class="btn-close" data-close-search aria-label="Close search"></button>
+        </div>
+        <input type="search" id="veraSearchInput" class="vera-search-input mb-4" placeholder="SEARCH GARMENTS..." />
+        <div id="veraSearchResults" class="row g-4"></div>
+      </div>
+    </div>
+
+    <main class="container-fluid px-3 px-md-5 py-4">
+      <div class="border-bottom border-vera pb-3 mb-4 d-flex flex-wrap justify-content-between align-items-end gap-2">
+        <div>
+          <div class="font-display ls-wide text-muted-vera" style="font-size:10px;">Client Portal</div>
+          <h1 class="font-display ls-editorial fs-4 fw-normal mb-0 mt-1">My Account</h1>
+        </div>
+        <div id="accountUserHeader"></div>
+      </div>
+
+      <!-- Minimalist Tab Navigation -->
+      <ul class="nav nav-tabs vera-tabs mb-4" id="accountTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="tabProfileBtn" data-bs-toggle="tab" data-bs-target="#paneProfile" type="button" role="tab">Profile / Access</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tabOrdersBtn" data-bs-toggle="tab" data-bs-target="#paneOrders" type="button" role="tab">Order History</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tabAddressesBtn" data-bs-toggle="tab" data-bs-target="#paneAddresses" type="button" role="tab">Saved Addresses</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tabWishlistBtn" data-bs-toggle="tab" data-bs-target="#paneWishlist" type="button" role="tab">Wishlist</button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Tab 1: Login / Register or Profile Overview -->
+        <div class="tab-pane fade show active" id="paneProfile" role="tabpanel">
+          <div id="authArea"></div>
+        </div>
+
+        <!-- Tab 2: Live Order History -->
+        <div class="tab-pane fade" id="paneOrders" role="tabpanel">
+          <div id="ordersHistoryArea"></div>
+        </div>
+
+        <!-- Tab 3: Saved Indian Addresses -->
+        <div class="tab-pane fade" id="paneAddresses" role="tabpanel">
+          <div id="addressesArea"></div>
+        </div>
+
+        <!-- Tab 4: Wishlist -->
+        <div class="tab-pane fade" id="paneWishlist" role="tabpanel">
+          <div id="wishlistArea" class="row g-4"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="vera-footer">
+      <div class="container-fluid px-3 px-md-5 d-flex flex-wrap justify-content-between align-items-center gap-2 small text-muted-vera">
+        <span>© 2026 VÉRA Fashion India Pvt. Ltd.</span>
+        <a href="admin-dashboard.html" class="text-decoration-none text-muted-vera font-display ls-editorial" style="font-size:10px;">Atelier Admin Panel</a>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Handle hash routing (#wishlist or #orders)
+        if (window.location.hash === '#wishlist') {
+          new bootstrap.Tab(document.getElementById('tabWishlistBtn')).show();
+        } else if (window.location.hash === '#orders') {
+          new bootstrap.Tab(document.getElementById('tabOrdersBtn')).show();
+        }
+
+        function renderAuth() {
+          const user = VERA.getCurrentUser();
+          const headerEl = document.getElementById('accountUserHeader');
+          const authEl = document.getElementById('authArea');
+
+          if (user) {
+            headerEl.innerHTML =
+              '<div class="d-flex align-items-center gap-3">' +
+              '  <span class="small text-muted-vera">Signed in as <strong class="text-black">' + VERA.escapeHTML(user.name) + '</strong></span>' +
+              '  <button type="button" id="logoutBtn" class="btn btn-vera-subtle">Sign Out</button>' +
+              '</div>';
+
+            authEl.innerHTML =
+              '<div class="row g-4">' +
+              '  <div class="col-md-6">' +
+              '    <div class="border border-vera p-4">' +
+              '      <div class="font-display ls-wide text-muted-vera mb-2" style="font-size:10px;">Client Profile</div>' +
+              '      <h2 class="font-display ls-editorial fs-5 fw-normal mb-3">' + VERA.escapeHTML(user.name) + '</h2>' +
+              '      <div class="small text-muted-vera mb-1">Email: <span class="text-black">' + VERA.escapeHTML(user.email) + '</span></div>' +
+              '      <div class="small text-muted-vera mb-1">Mobile: <span class="text-black font-mono-num">' + VERA.escapeHTML(user.phone) + '</span></div>' +
+              '      <div class="small text-muted-vera">City: <span class="text-black">' + VERA.escapeHTML(user.city) + '</span></div>' +
+              '    </div>' +
+              '  </div>' +
+              '</div>';
+
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+              VERA.logoutUser();
+              renderAll();
+              VERA.showToast('Signed out');
+            });
+          } else {
+            headerEl.innerHTML = '';
+            authEl.innerHTML =
+              '<div class="row g-5">' +
+              '  <div class="col-lg-5">' +
+              '    <div class="border border-vera p-4">' +
+              '      <h2 class="font-display ls-editorial fs-6 mb-3">Sign In</h2>' +
+              '      <form id="loginForm">' +
+              '        <div class="mb-3">' +
+              '          <label class="form-label font-display ls-editorial small">Email</label>' +
+              '          <input type="email" id="loginEmail" class="form-control" value="ananya.sharma@example.in" required />' +
+              '        </div>' +
+              '        <div class="mb-3">' +
+              '          <label class="form-label font-display ls-editorial small">Password</label>' +
+              '          <input type="password" id="loginPass" class="form-control" value="vera2026" required />' +
+              '        </div>' +
+              '        <div id="loginError" class="small text-danger mb-3 d-none"></div>' +
+              '        <button type="submit" class="btn btn-vera-primary w-100">Sign In</button>' +
+              '      </form>' +
+              '      <div class="small text-muted-vera mt-3">Demo client pre-filled: ananya.sharma@example.in / vera2026</div>' +
+              '    </div>' +
+              '  </div>' +
+              '  <div class="col-lg-6">' +
+              '    <div class="border border-vera p-4">' +
+              '      <h2 class="font-display ls-editorial fs-6 mb-3">Create Client Account</h2>' +
+              '      <form id="registerForm">' +
+              '        <div class="row g-3">' +
+              '          <div class="col-md-6">' +
+              '            <label class="form-label font-display ls-editorial small">Full Name</label>' +
+              '            <input type="text" id="regName" class="form-control" required placeholder="Rhea Malhotra" />' +
+              '          </div>' +
+              '          <div class="col-md-6">' +
+              '            <label class="form-label font-display ls-editorial small">City (India)</label>' +
+              '            <input type="text" id="regCity" class="form-control" required placeholder="Mumbai" />' +
+              '          </div>' +
+              '          <div class="col-md-6">' +
+              '            <label class="form-label font-display ls-editorial small">Email</label>' +
+              '            <input type="email" id="regEmail" class="form-control" required placeholder="rhea@example.in" />' +
+              '          </div>' +
+              '          <div class="col-md-6">' +
+              '            <label class="form-label font-display ls-editorial small">Mobile (+91)</label>' +
+              '            <input type="tel" id="regPhone" class="form-control font-mono-num" required placeholder="+91 98200 12345" />' +
+              '          </div>' +
+              '          <div class="col-12">' +
+              '            <label class="form-label font-display ls-editorial small">Password</label>' +
+              '            <input type="password" id="regPass" class="form-control" required minlength="6" />' +
+              '          </div>' +
+              '        </div>' +
+              '        <div id="regError" class="small text-danger mt-2 d-none"></div>' +
+              '        <button type="submit" class="btn btn-vera-outline w-100 mt-4">Register Account</button>' +
+              '      </form>' +
+              '    </div>' +
+              '  </div>' +
+              '</div>';
+
+            document.getElementById('loginForm').addEventListener('submit', (e) => {
+              e.preventDefault();
+              const u = VERA.loginUser(
+                document.getElementById('loginEmail').value,
+                document.getElementById('loginPass').value
+              );
+              if (!u) {
+                const err = document.getElementById('loginError');
+                err.textContent = 'Invalid email or password.';
+                err.classList.remove('d-none');
+                return;
+              }
+              VERA.showToast('Welcome back, ' + u.name);
+              renderAll();
+            });
+
+            document.getElementById('registerForm').addEventListener('submit', (e) => {
+              e.preventDefault();
+              const res = VERA.registerUser({
+                name: document.getElementById('regName').value,
+                email: document.getElementById('regEmail').value,
+                password: document.getElementById('regPass').value,
+                phone: document.getElementById('regPhone').value,
+                city: document.getElementById('regCity').value
+              });
+              if (res.error) {
+                const err = document.getElementById('regError');
+                err.textContent = res.error;
+                err.classList.remove('d-none');
+                return;
+              }
+              VERA.showToast('Account created');
+              renderAll();
+            });
+          }
+        }
+
+        function renderOrders() {
+          const user = VERA.getCurrentUser();
+          const allOrders = VERA.getOrders();
+          // Show orders for current user if logged in, or all recent local orders so guest checkouts are visible
+          const orders = user
+            ? allOrders.filter((o) => o.customerEmail.toLowerCase() === user.email.toLowerCase())
+            : allOrders;
+
+          const area = document.getElementById('ordersHistoryArea');
+          if (orders.length === 0) {
+            area.innerHTML =
+              '<div class="border border-vera p-5 text-center">' +
+              '<p class="font-display ls-editorial small mb-3">No orders placed yet.</p>' +
+              '<a href="products.html" class="btn btn-vera-primary">Start Shopping</a>' +
+              '</div>';
+            return;
+          }
+
+          area.innerHTML =
+            (!user
+              ? '<div class="small text-muted-vera mb-3">Showing recent store orders from this browser. Sign in to filter exclusively by your profile.</div>'
+              : '') +
+            orders
+              .map((o) => {
+                const statusClass = 'status-' + o.status.toLowerCase();
+                return (
+                  '<div class="border border-vera p-4 mb-3">' +
+                  '  <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom border-vera pb-3 mb-3 gap-2">' +
+                  '    <div>' +
+                  '      <span class="font-mono-num fw-medium me-3">' + VERA.escapeHTML(o.id) + '</span>' +
+                  '      <span class="small text-muted-vera">' + VERA.formatDate(o.createdAt) + ' · ' + VERA.escapeHTML(o.paymentMethod) + '</span>' +
+                  '    </div>' +
+                  '    <div class="d-flex align-items-center gap-4">' +
+                  '      <span class="status-label ' + statusClass + '">' + VERA.escapeHTML(o.status) + '</span>' +
+                  '      <span class="font-mono-num fw-medium">' + VERA.formatINR(o.total) + '</span>' +
+                  '    </div>' +
+                  '  </div>' +
+                  '  <div class="d-flex flex-column gap-2">' +
+                  o.items
+                    .map(
+                      (it) =>
+                        '<div class="d-flex justify-content-between small">' +
+                        '  <span>' + VERA.escapeHTML(it.name) + ' (' + VERA.escapeHTML(it.size) + ') × ' + it.qty + '</span>' +
+                        '  <span class="font-mono-num">' + VERA.formatINR(it.price * it.qty) + '</span>' +
+                        '</div>'
+                    )
+                    .join('') +
+                  '  </div>' +
+                  '  <div class="small text-muted-vera mt-3 pt-2 border-top border-vera">Deliver to: ' +
+                  VERA.escapeHTML(o.customerName) + ', ' + VERA.escapeHTML(o.address) + ', ' + VERA.escapeHTML(o.city) + ' — ' + VERA.escapeHTML(o.pin) +
+                  '  </div>' +
+                  '</div>'
+                );
+              })
+              .join('');
+        }
+
+        function renderAddresses() {
+          const user = VERA.getCurrentUser();
+          const area = document.getElementById('addressesArea');
+          if (!user) {
+            area.innerHTML = '<div class="border border-vera p-4 small text-muted-vera">Please sign in on the Profile tab to manage your saved Indian delivery addresses.</div>';
+            return;
+          }
+
+          const cards = (user.addresses || [])
+            .map(
+              (a) =>
+                '<div class="col-md-6">' +
+                '  <div class="border border-vera p-4 h-100 d-flex flex-column justify-content-between">' +
+                '    <div>' +
+                '      <div class="font-display ls-editorial small fw-medium mb-2">' + VERA.escapeHTML(a.label) + '</div>' +
+                '      <div class="small text-muted-vera">' + VERA.escapeHTML(a.line1) + '</div>' +
+                '      <div class="small text-muted-vera">' + VERA.escapeHTML(a.city) + ', ' + VERA.escapeHTML(a.state) + ' — <span class="font-mono-num">' + VERA.escapeHTML(a.pin) + '</span></div>' +
+                '      <div class="small text-muted-vera font-mono-num mt-1">' + VERA.escapeHTML(a.phone) + '</div>' +
+                '    </div>' +
+                '    <div class="mt-3 pt-2 border-top border-vera">' +
+                '      <button type="button" class="btn btn-link text-danger p-0 small text-decoration-underline" data-del-addr="' + VERA.escapeHTML(a.id) + '">Remove Address</button>' +
+                '    </div>' +
+                '  </div>' +
+                '</div>'
+            )
+            .join('');
+
+          area.innerHTML =
+            '<div class="row g-4 mb-4">' + (cards || '<div class="col-12 small text-muted-vera">No saved addresses yet.</div>') + '</div>' +
+            '<div class="border border-vera p-4" style="max-width:640px;">' +
+            '  <h3 class="font-display ls-editorial fs-6 mb-3">Add New Indian Address</h3>' +
+            '  <form id="addAddrForm" class="row g-3">' +
+            '    <div class="col-md-6"><input type="text" id="addrLabel" class="form-control" placeholder="Label (e.g. Studio)" required /></div>' +
+            '    <div class="col-md-6"><input type="tel" id="addrPhone" class="form-control font-mono-num" placeholder="+91 98201 00000" required /></div>' +
+            '    <div class="col-12"><input type="text" id="addrLine" class="form-control" placeholder="Street Address / Landmark" required /></div>' +
+            '    <div class="col-md-4"><input type="text" id="addrCity" class="form-control" placeholder="City" required /></div>' +
+            '    <div class="col-md-4"><input type="text" id="addrState" class="form-control" placeholder="State" required /></div>' +
+            '    <div class="col-md-4"><input type="text" id="addrPin" class="form-control font-mono-num" placeholder="PIN (6 digits)" maxlength="6" pattern="\\d{6}" required /></div>' +
+            '    <div class="col-12"><button type="submit" class="btn btn-vera-primary">Save Address</button></div>' +
+            '  </form>' +
+            '</div>';
+
+          area.querySelectorAll('[data-del-addr]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              VERA.removeAddressFromCurrentUser(btn.getAttribute('data-del-addr'));
+              renderAddresses();
+              VERA.showToast('Address removed');
+            });
+          });
+
+          const form = document.getElementById('addAddrForm');
+          if (form) {
+            form.addEventListener('submit', (e) => {
+              e.preventDefault();
+              VERA.addAddressToCurrentUser({
+                label: document.getElementById('addrLabel').value,
+                phone: document.getElementById('addrPhone').value,
+                line1: document.getElementById('addrLine').value,
+                city: document.getElementById('addrCity').value,
+                state: document.getElementById('addrState').value,
+                pin: document.getElementById('addrPin').value
+              });
+              renderAddresses();
+              VERA.showToast('Address saved');
+            });
+          }
+        }
+
+        function renderWishlist() {
+          const ids = VERA.getWishlist();
+          const area = document.getElementById('wishlistArea');
+          const items = ids.map((id) => VERA.getProductById(id)).filter(Boolean);
+          if (items.length === 0) {
+            area.innerHTML =
+              '<div class="col-12"><div class="border border-vera p-5 text-center">' +
+              '<p class="font-display ls-editorial small mb-3">Your Wishlist Is Empty</p>' +
+              '<a href="products.html" class="btn btn-vera-primary">Discover Pieces</a>' +
+              '</div></div>';
+            return;
+          }
+          area.innerHTML = items
+            .map((p) => '<div class="col-6 col-md-3">' + VERA.renderProductCardHTML(p) + '</div>')
+            .join('');
+        }
+
+        function renderAll() {
+          renderAuth();
+          renderOrders();
+          renderAddresses();
+          renderWishlist();
+        }
+
+        renderAll();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VÉRA Atelier Admin — Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="adminShell" class="admin-shell">
+      <aside class="admin-sidebar">
+        <div>
+          <div class="p-4 border-bottom d-flex justify-content-between align-items-center" style="border-color: var(--admin-border) !important;">
+            <div>
+              <div class="vera-brand admin-brand-word fs-5">VÉRA</div>
+              <div class="admin-brand-sub font-display ls-wide text-muted-vera mt-1" style="font-size:9px;">Atelier Console</div>
+            </div>
+            <button type="button" id="adminSidebarToggle" class="btn btn-link p-0 text-reset" aria-label="Toggle sidebar">
+              <i class="bi bi-layout-sidebar"></i>
+            </button>
+          </div>
+          <nav class="mt-2">
+            <a href="admin-dashboard.html" class="admin-nav-link"><i class="bi bi-speedometer2"></i><span class="admin-nav-label">Dashboard</span></a>
+            <a href="admin-products.html" class="admin-nav-link active"><i class="bi bi-box-seam"></i><span class="admin-nav-label">Products</span></a>
+            <a href="admin-add-product.html" class="admin-nav-link"><i class="bi bi-plus-square"></i><span class="admin-nav-label">Add Product</span></a>
+            <a href="admin-orders.html" class="admin-nav-link"><i class="bi bi-receipt"></i><span class="admin-nav-label">Orders</span></a>
+            <a href="admin-customers.html" class="admin-nav-link"><i class="bi bi-people"></i><span class="admin-nav-label">Customers</span></a>
+          </nav>
+        </div>
+        <div class="p-3 border-top" style="border-color: var(--admin-border) !important;">
+          <a href="index.html" class="admin-nav-link px-2">
+            <i class="bi bi-arrow-up-right-square"></i>
+            <span class="admin-nav-label">View Live Store</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="adminMobileNav">
+        <div class="offcanvas-header border-bottom" style="border-color: var(--admin-border) !important;">
+          <span class="vera-brand fs-5">VÉRA ADMIN</span>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+          <a href="admin-dashboard.html" class="admin-nav-link">Dashboard</a>
+          <a href="admin-products.html" class="admin-nav-link active">Products</a>
+          <a href="admin-add-product.html" class="admin-nav-link">Add Product</a>
+          <a href="admin-orders.html" class="admin-nav-link">Orders</a>
+          <a href="admin-customers.html" class="admin-nav-link">Customers</a>
+          <a href="index.html" class="admin-nav-link border-top">View Live Store</a>
+        </div>
+      </div>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div class="d-flex align-items-center gap-3">
+            <button type="button" class="btn btn-vera-subtle d-lg-none px-2 py-1" data-bs-toggle="offcanvas" data-bs-target="#adminMobileNav">
+              <i class="bi bi-list"></i>
+            </button>
+            <h1 class="font-display ls-editorial fs-6 fw-normal mb-0">Product Inventory</h1>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" id="adminThemeToggle" class="btn btn-vera-subtle px-3 py-1"></button>
+            <a href="admin-add-product.html" class="btn btn-vera-primary px-3 py-1">
+              <i class="bi bi-plus me-1"></i> New Product
+            </a>
+          </div>
+        </header>
+
+        <main class="p-4 p-lg-5 flex-fill">
+          <!-- Search & Filter Bar -->
+          <div class="admin-card mb-4">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-5">
+                <input type="search" id="prodSearchInput" class="form-control" placeholder="Search by product name or SKU..." />
+              </div>
+              <div class="col-md-4">
+                <select id="prodCatFilter" class="form-select">
+                  <option value="ALL">All Departments</option>
+                  <option value="WOMAN">Woman</option>
+                  <option value="MAN">Man</option>
+                  <option value="KIDS">Kids</option>
+                  <option value="PERFUMES">Perfumes</option>
+                </select>
+              </div>
+              <div class="col-md-3 text-md-end">
+                <span id="prodCountLabel" class="font-mono-num small text-muted-vera">0 SKUs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory Table -->
+          <div class="admin-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Piece</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Price (₹)</th>
+                    <th>Stock</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminProductsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+          <div class="font-display ls-editorial fs-6 mb-2">Remove Product</div>
+          <p class="small text-muted-vera mb-4">
+            Remove <strong id="delProdName"></strong> from the live storefront catalog? This updates localStorage immediately.
+          </p>
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-vera-outline" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" id="confirmDeleteBtn" class="btn btn-vera-primary">Delete Product</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('prodSearchInput');
+        const catFilter = document.getElementById('prodCatFilter');
+        const tbody = document.getElementById('adminProductsBody');
+        const countLabel = document.getElementById('prodCountLabel');
+        const delModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+        let pendingDeleteId = null;
+
+        function renderTable() {
+          const q = searchInput.value.trim().toLowerCase();
+          const cat = catFilter.value;
+          const products = VERA.getProducts().filter((p) => {
+            const matchCat = cat === 'ALL' || p.category === cat;
+            const matchQ =
+              !q ||
+              p.name.toLowerCase().includes(q) ||
+              p.sku.toLowerCase().includes(q) ||
+              p.colorName.toLowerCase().includes(q);
+            return matchCat && matchQ;
+          });
+
+          countLabel.textContent = products.length + ' SKUs';
+
+          if (products.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-5 text-muted-vera">No products match your filter.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = products
+            .map((p) => {
+              const stockClass = p.stock === 0 ? 'status-cancelled' : p.stock <= 5 ? 'status-processing' : 'status-delivered';
+              const stockText = p.stock === 0 ? 'OUT OF STOCK' : p.stock + ' units';
+              return (
+                '<tr>' +
+                '  <td>' +
+                '    <div class="d-flex align-items-center gap-3">' +
+                '      <img src="' + VERA.escapeHTML(p.image) + '" alt="' + VERA.escapeHTML(p.name) + '" style="width:42px;height:56px;object-fit:cover;border:1px solid var(--admin-border);" referrerpolicy="no-referrer" />' +
+                '      <div>' +
+                '        <div class="font-display ls-editorial small">' + VERA.escapeHTML(p.name) + '</div>' +
+                '        <div class="small text-muted-vera">' + VERA.escapeHTML(p.colorName) + '</div>' +
+                '      </div>' +
+                '    </div>' +
+                '  </td>' +
+                '  <td class="font-mono-num small">' + VERA.escapeHTML(p.sku) + '</td>' +
+                '  <td class="font-display ls-editorial small">' + VERA.escapeHTML(p.category) + '</td>' +
+                '  <td class="font-mono-num">' + VERA.formatINR(p.price) + '</td>' +
+                '  <td><span class="status-label ' + stockClass + '">' + stockText + '</span></td>' +
+                '  <td class="text-end">' +
+                '    <div class="d-inline-flex gap-2">' +
+                '      <a href="admin-add-product.html?id=' + encodeURIComponent(p.id) + '" class="btn btn-vera-subtle px-2 py-1">Edit</a>' +
+                '      <button type="button" class="btn btn-vera-subtle px-2 py-1 text-danger" data-del-id="' + VERA.escapeHTML(p.id) + '" data-del-name="' + VERA.escapeHTML(p.name) + '">Delete</button>' +
+                '    </div>' +
+                '  </td>' +
+                '</tr>'
+              );
+            })
+            .join('');
+        }
+
+        tbody.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-del-id]');
+          if (!btn) return;
+          pendingDeleteId = btn.getAttribute('data-del-id');
+          document.getElementById('delProdName').textContent = btn.getAttribute('data-del-name');
+          delModal.show();
+        });
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+          if (pendingDeleteId) {
+            VERA.deleteProduct(pendingDeleteId);
+            pendingDeleteId = null;
+            delModal.hide();
+            renderTable();
+            VERA.showToast('Product deleted from catalog');
+          }
+        });
+
+        searchInput.addEventListener('input', renderTable);
+        catFilter.addEventListener('change', renderTable);
+        renderTable();
+      });
+    </script>
+  </body>
+</html>

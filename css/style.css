@@ -1,0 +1,1193 @@
+/* ==========================================================================
+   VÉRA — Minimalist Luxury Editorial Fashion Design System
+   Sharp 0px geometry, 1px #E5E5E5 hairlines, zero drop shadows
+   ========================================================================== */
+
+:root {
+  --vera-bg: #ffffff;
+  --vera-surface: #f7f7f7;
+  --vera-ink: #000000;
+  --vera-ink-secondary: #333333;
+  --vera-muted: #666666;
+  --vera-subtle: #999999;
+  --vera-border: #e5e5e5;
+  --vera-border-strong: #000000;
+  --vera-danger: #b91c1c;
+  --vera-success: #15803d;
+  --vera-warning: #b45309;
+
+  --font-display: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Global Reset & Typography */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--vera-bg);
+  color: var(--vera-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Strict 0px Border-Radius & Zero Shadow Enforcement */
+.btn,
+.form-control,
+.form-select,
+.input-group-text,
+.card,
+.modal-content,
+.offcanvas,
+.accordion-item,
+.accordion-button,
+.dropdown-menu,
+.alert,
+.nav-tabs .nav-link,
+.table,
+.list-group-item {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--vera-ink);
+  outline-offset: 2px;
+  box-shadow: none !important;
+  border-color: var(--vera-ink);
+}
+
+/* Typographic Utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.ls-editorial {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ls-wide {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-muted-vera {
+  color: var(--vera-muted);
+}
+
+.border-vera {
+  border-color: var(--vera-border) !important;
+}
+
+/* Editorial Buttons */
+.btn-vera-primary {
+  background-color: var(--vera-ink);
+  color: #ffffff;
+  border: 1px solid var(--vera-ink);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 180ms var(--ease-editorial), color 180ms var(--ease-editorial);
+}
+
+.btn-vera-primary:hover,
+.btn-vera-primary:focus {
+  background-color: #222222;
+  border-color: #222222;
+  color: #ffffff;
+}
+
+.btn-vera-primary:disabled {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  color: #666666;
+}
+
+.btn-vera-outline {
+  background-color: transparent;
+  color: var(--vera-ink);
+  border: 1px solid var(--vera-ink);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 180ms var(--ease-editorial), color 180ms var(--ease-editorial);
+}
+
+.btn-vera-outline:hover {
+  background-color: var(--vera-ink);
+  color: #ffffff;
+}
+
+.btn-vera-subtle {
+  background-color: transparent;
+  color: var(--vera-ink);
+  border: 1px solid var(--vera-border);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 180ms var(--ease-editorial), background-color 180ms var(--ease-editorial);
+}
+
+.btn-vera-subtle:hover,
+.btn-vera-subtle.active {
+  border-color: var(--vera-ink);
+  background-color: var(--vera-ink);
+  color: #ffffff;
+}
+
+.btn-vera-hero {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 14px 34px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 180ms var(--ease-editorial), color 180ms var(--ease-editorial);
+}
+
+.btn-vera-hero:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+/* ==========================================================================
+   Storefront Header (3-Zone Editorial Contract)
+   ========================================================================== */
+
+.vera-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background-color: #ffffff;
+  color: #000000;
+  border-bottom: 1px solid var(--vera-border);
+  transition: background-color 220ms var(--ease-editorial), color 220ms var(--ease-editorial), border-color 220ms var(--ease-editorial);
+}
+
+.vera-header.header-transparent {
+  background-color: transparent;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent);
+  color: #ffffff;
+  border-bottom-color: transparent;
+}
+
+.vera-header.header-transparent.is-scrolled {
+  background-color: #ffffff;
+  background-image: none;
+  color: #000000;
+  border-bottom-color: var(--vera-border);
+}
+
+.vera-header a,
+.vera-header button {
+  color: inherit;
+  text-decoration: none;
+}
+
+.vera-brand {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.vera-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.vera-nav-link {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  position: relative;
+  padding: 4px 0;
+  background: transparent;
+  border: 0;
+}
+
+.vera-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms var(--ease-editorial);
+}
+
+.vera-nav-link:hover::after,
+.vera-nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.vera-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-shrink: 0;
+}
+
+.vera-icon-btn {
+  background: transparent;
+  border: 0;
+  padding: 6px 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 40px;
+}
+
+.page-offset {
+  padding-top: 60px;
+}
+
+/* ==========================================================================
+   Search Overlay
+   ========================================================================== */
+
+.vera-search-overlay {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.98);
+  z-index: 1025;
+  display: none;
+  overflow-y: auto;
+  border-top: 1px solid var(--vera-border);
+}
+
+.vera-search-overlay.is-open {
+  display: block;
+}
+
+.vera-search-input {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #000000;
+  padding: 16px 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  color: #000000;
+}
+
+.vera-search-input:focus {
+  outline: none;
+}
+
+/* ==========================================================================
+   Hero Lookbook & Editorial Sections
+   ========================================================================== */
+
+.vera-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 620px;
+  max-height: 980px;
+  overflow: hidden;
+  background-color: #141414;
+}
+
+.vera-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  display: block;
+}
+
+.vera-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.25) 45%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 56px 40px;
+}
+
+.vera-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4.4vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.1;
+  text-wrap: balance;
+  max-width: 720px;
+}
+
+.vera-hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Lookbook Split Banner */
+.editorial-split-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: var(--vera-surface);
+  border: 1px solid var(--vera-border);
+  text-decoration: none;
+  color: inherit;
+}
+
+.editorial-split-media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: #efefef;
+}
+
+.editorial-split-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 420ms var(--ease-editorial);
+}
+
+.editorial-split-card:hover .editorial-split-media img {
+  transform: scale(1.03);
+}
+
+.editorial-banner-wide {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: 640px;
+  width: 100%;
+  overflow: hidden;
+  background-color: #eceae6;
+}
+
+.editorial-banner-wide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.editorial-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+}
+
+/* ==========================================================================
+   Product Cards & Hover Quick-Add Matrix
+   ========================================================================== */
+
+.vera-product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--vera-bg);
+}
+
+.vera-product-media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  border: 1px solid var(--vera-border);
+}
+
+.vera-product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 320ms var(--ease-editorial);
+}
+
+.vera-product-card:hover .vera-product-media img {
+  transform: scale(1.03);
+}
+
+.vera-quick-add {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid var(--vera-border);
+  padding: 10px 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 180ms var(--ease-editorial), transform 180ms var(--ease-editorial);
+}
+
+.vera-product-media:hover .vera-quick-add,
+.vera-product-media:focus-within .vera-quick-add {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vera-quick-size-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #000000;
+  padding: 5px 7px;
+  min-width: 28px;
+  transition: border-color 140ms ease, background-color 140ms ease, color 140ms ease;
+}
+
+.vera-quick-size-btn:hover {
+  border-color: #000000;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.vera-wishlist-icon-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--vera-border);
+  color: #000000;
+  z-index: 2;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.vera-wishlist-icon-btn:hover,
+.vera-wishlist-icon-btn.is-active {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.vera-product-meta {
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vera-product-kicker {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vera-muted);
+}
+
+.vera-product-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vera-ink);
+  text-decoration: none;
+  line-height: 1.35;
+}
+
+.vera-product-title:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.vera-product-price {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--vera-ink);
+}
+
+/* Resilient Image Fallback */
+.vera-img-fallback {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  background: linear-gradient(145deg, #f3f2ef 0%, #e4e2dd 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  color: #555555;
+}
+
+/* ==========================================================================
+   Product Detail Split Screen
+   ========================================================================== */
+
+.pdp-gallery-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pdp-gallery-item {
+  aspect-ratio: 3 / 4;
+  background-color: #f4f4f4;
+  border: 1px solid var(--vera-border);
+  overflow: hidden;
+}
+
+.pdp-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.pdp-sticky-panel {
+  position: sticky;
+  top: 88px;
+}
+
+.pdp-swatch {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--vera-border);
+  padding: 2px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.pdp-swatch-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pdp-swatch.active {
+  border-color: #000000;
+}
+
+.pdp-size-btn {
+  min-width: 56px;
+  height: 42px;
+  border: 1px solid var(--vera-border);
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.pdp-size-btn:hover {
+  border-color: #000000;
+}
+
+.pdp-size-btn.active {
+  background-color: #000000;
+  border-color: #000000;
+  color: #ffffff;
+}
+
+/* Editorial Accordion */
+.vera-accordion .accordion-item {
+  border: 0;
+  border-top: 1px solid var(--vera-border);
+  background: transparent;
+}
+
+.vera-accordion .accordion-item:last-child {
+  border-bottom: 1px solid var(--vera-border);
+}
+
+.vera-accordion .accordion-button {
+  background: transparent;
+  color: #000000;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 0;
+}
+
+.vera-accordion .accordion-button:not(.collapsed) {
+  background: transparent;
+  color: #000000;
+}
+
+.vera-accordion .accordion-body {
+  padding: 0 0 18px 0;
+  font-size: 13px;
+  color: var(--vera-muted);
+}
+
+/* ==========================================================================
+   Cart & Checkout Steps
+   ========================================================================== */
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--vera-border);
+}
+
+.qty-stepper button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: #000000;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-stepper button:hover {
+  background-color: var(--vera-surface);
+}
+
+.qty-stepper span {
+  min-width: 34px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.checkout-step-bar {
+  display: flex;
+  border-bottom: 1px solid var(--vera-border);
+}
+
+.checkout-step-tab {
+  flex: 1;
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vera-muted);
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  text-align: left;
+}
+
+.checkout-step-tab.active {
+  color: #000000;
+  border-bottom-color: #000000;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Account Minimalist Tabs
+   ========================================================================== */
+
+.vera-tabs {
+  border-bottom: 1px solid var(--vera-border);
+  gap: 24px;
+}
+
+.vera-tabs .nav-link {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 12px 0;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vera-muted);
+  background: transparent;
+}
+
+.vera-tabs .nav-link.active {
+  color: #000000;
+  border-bottom-color: #000000;
+  background: transparent;
+}
+
+/* ==========================================================================
+   Storefront Footer
+   ========================================================================== */
+
+.vera-footer {
+  border-top: 1px solid var(--vera-border);
+  background-color: #ffffff;
+  padding: 56px 0 36px 0;
+  margin-top: 72px;
+}
+
+.vera-footer-heading {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.vera-footer-link {
+  display: block;
+  font-size: 12px;
+  color: var(--vera-muted);
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.vera-footer-link:hover {
+  color: #000000;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ==========================================================================
+   Non-Blocking Toast Notification
+   ========================================================================== */
+
+.vera-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1090;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.vera-toast {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+  padding: 14px 20px;
+  min-width: 280px;
+  max-width: 380px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   Admin Dashboard Panel (Light & Dark Minimalist Modes)
+   ========================================================================== */
+
+.admin-shell {
+  --admin-bg: #ffffff;
+  --admin-surface: #fafafa;
+  --admin-sidebar-bg: #ffffff;
+  --admin-ink: #000000;
+  --admin-muted: #666666;
+  --admin-border: #e5e5e5;
+  --admin-hover: #f2f2f2;
+  --admin-bar-fill: #000000;
+  --admin-bar-track: #efefef;
+
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--admin-bg);
+  color: var(--admin-ink);
+}
+
+.admin-shell.admin-dark {
+  --admin-bg: #0f0f0f;
+  --admin-surface: #171717;
+  --admin-sidebar-bg: #121212;
+  --admin-ink: #f5f5f5;
+  --admin-muted: #9ca3af;
+  --admin-border: #2a2a2a;
+  --admin-hover: #222222;
+  --admin-bar-fill: #ffffff;
+  --admin-bar-track: #242424;
+}
+
+.admin-sidebar {
+  width: 256px;
+  flex-shrink: 0;
+  background-color: var(--admin-sidebar-bg);
+  border-right: 1px solid var(--admin-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: width 200ms var(--ease-editorial);
+}
+
+.admin-shell.sidebar-collapsed .admin-sidebar {
+  width: 72px;
+}
+
+.admin-shell.sidebar-collapsed .admin-nav-label,
+.admin-shell.sidebar-collapsed .admin-brand-sub,
+.admin-shell.sidebar-collapsed .admin-sidebar-section-title {
+  display: none;
+}
+
+.admin-shell.sidebar-collapsed .admin-brand-word {
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 22px;
+  color: var(--admin-muted);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  white-space: nowrap;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.admin-nav-link:hover {
+  background-color: var(--admin-hover);
+  color: var(--admin-ink);
+}
+
+.admin-nav-link.active {
+  background-color: var(--admin-ink);
+  color: var(--admin-bg);
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--admin-bg);
+}
+
+.admin-topbar {
+  height: 60px;
+  border-bottom: 1px solid var(--admin-border);
+  background-color: var(--admin-bg);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-card {
+  background-color: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  padding: 22px;
+}
+
+.admin-kpi-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+}
+
+.admin-kpi-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.65rem;
+  font-weight: 500;
+  color: var(--admin-ink);
+  margin-top: 8px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--admin-ink);
+}
+
+.admin-table th {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+  border-bottom: 1px solid var(--admin-border);
+  padding: 12px 14px;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.admin-table tbody tr:hover {
+  background-color: var(--admin-hover);
+}
+
+/* Dark theme form & button surface harmonization */
+.admin-dark .form-control,
+.admin-dark .form-select,
+.admin-dark .modal-content,
+.admin-dark .offcanvas {
+  background-color: var(--admin-surface);
+  color: var(--admin-ink);
+  border-color: var(--admin-border);
+}
+
+.admin-dark .form-control::placeholder {
+  color: var(--admin-muted);
+}
+
+.admin-dark .btn-vera-primary {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.admin-dark .btn-vera-primary:hover {
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
+  color: #000000;
+}
+
+.admin-dark .btn-vera-outline,
+.admin-dark .btn-vera-subtle {
+  color: var(--admin-ink);
+  border-color: var(--admin-border);
+}
+
+.admin-dark .btn-vera-outline:hover,
+.admin-dark .btn-vera-subtle:hover,
+.admin-dark .btn-vera-subtle.active {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.admin-dark .text-muted-vera {
+  color: var(--admin-muted);
+}
+
+/* Custom Minimalist Sales Bar + Line Chart */
+.vera-chart-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 12px;
+}
+
+.vera-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  align-items: end;
+  height: 220px;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 8px;
+}
+
+.vera-chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  position: relative;
+}
+
+.vera-chart-bar {
+  width: 100%;
+  max-width: 44px;
+  background-color: var(--admin-bar-fill);
+  transition: opacity 150ms ease, transform 200ms var(--ease-editorial);
+  cursor: pointer;
+}
+
+.vera-chart-bar:hover {
+  opacity: 0.78;
+}
+
+.vera-chart-val {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--admin-muted);
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.vera-chart-labels {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  padding-top: 10px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+}
+
+/* Status Text Indicator (Zero Pill Badges) */
+.status-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-processing { color: var(--vera-warning); }
+.status-shipped { color: #1d4ed8; }
+.status-delivered { color: var(--vera-success); }
+.status-cancelled { color: var(--vera-danger); }
+
+.admin-dark .status-shipped { color: #93c5fd; }
+.admin-dark .status-delivered { color: #86efac; }
+.admin-dark .status-processing { color: #fcd34d; }
+.admin-dark .status-cancelled { color: #fca5a5; }
+
+/* Responsive Refinements */
+@media (max-width: 991.98px) {
+  .vera-header {
+    padding: 0 16px;
+  }
+
+  .vera-hero-scrim {
+    padding: 36px 20px;
+  }
+
+  .editorial-banner-overlay {
+    padding: 24px;
+  }
+
+  .vera-quick-add {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .admin-sidebar {
+    display: none;
+  }
+
+  .admin-topbar {
+    padding: 0 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VÉRA — Shopping Bag &amp; Checkout</title>
+    <meta name="description" content="Review your VÉRA shopping bag, apply promo codes, and complete Indian checkout." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="page-offset">
+    <header id="veraHeader" class="vera-header">
+      <div class="d-flex align-items-center gap-3">
+        <button class="vera-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#veraMenuDrawer" aria-label="Open menu">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <a href="index.html" class="vera-brand">VÉRA</a>
+      </div>
+
+      <nav class="vera-nav-links d-none d-lg-flex">
+        <a href="products.html?category=WOMAN" class="vera-nav-link">Woman</a>
+        <a href="products.html?category=MAN" class="vera-nav-link">Man</a>
+        <a href="products.html?category=KIDS" class="vera-nav-link">Kids</a>
+        <a href="products.html?category=PERFUMES" class="vera-nav-link">Perfumes</a>
+      </nav>
+
+      <div class="vera-header-actions">
+        <button type="button" class="vera-icon-btn" data-open-search aria-label="Search">
+          <i class="bi bi-search"></i>
+          <span class="d-none d-md-inline">Search</span>
+        </button>
+        <a href="account.html" class="vera-icon-btn">
+          <i class="bi bi-person"></i>
+          <span class="d-none d-md-inline">Account</span>
+        </a>
+        <a href="cart.html" class="vera-icon-btn">
+          <i class="bi bi-bag"></i>
+          <span>Bag (<span data-cart-badge>0</span>)</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="veraMenuDrawer">
+      <div class="offcanvas-header border-bottom border-vera px-4 py-3">
+        <span class="vera-brand fs-5">VÉRA</span>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+        <ul class="list-unstyled d-flex flex-column gap-3">
+          <li><a href="products.html" class="text-decoration-none text-black font-display ls-editorial fs-6">All Collections</a></li>
+          <li><a href="products.html?category=WOMAN" class="text-decoration-none text-black font-display ls-editorial fs-6">Woman</a></li>
+          <li><a href="products.html?category=MAN" class="text-decoration-none text-black font-display ls-editorial fs-6">Man</a></li>
+          <li><a href="products.html?category=KIDS" class="text-decoration-none text-black font-display ls-editorial fs-6">Kids</a></li>
+          <li><a href="products.html?category=PERFUMES" class="text-decoration-none text-black font-display ls-editorial fs-6">Perfumes</a></li>
+        </ul>
+        <div class="border-top border-vera pt-3">
+          <a href="admin-dashboard.html" class="btn btn-vera-outline w-100">Atelier Admin Panel</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="veraSearchOverlay" class="vera-search-overlay">
+      <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="font-display ls-wide small text-muted-vera">Search VÉRA Archive</span>
+          <button type="button" class="btn-close" data-close-search aria-label="Close search"></button>
+        </div>
+        <input type="search" id="veraSearchInput" class="vera-search-input mb-4" placeholder="SEARCH GARMENTS..." />
+        <div id="veraSearchResults" class="row g-4"></div>
+      </div>
+    </div>
+
+    <main class="container-fluid px-3 px-md-5 py-4">
+      <div class="border-bottom border-vera pb-3 mb-4 d-flex justify-content-between align-items-end">
+        <div>
+          <div class="font-display ls-wide text-muted-vera" style="font-size:10px;">India Checkout · INR (₹)</div>
+          <h1 class="font-display ls-editorial fs-4 fw-normal mb-0 mt-1">Shopping Bag</h1>
+        </div>
+        <a href="products.html" class="font-display ls-editorial text-black text-decoration-none" style="font-size:11px;">Continue Shopping</a>
+      </div>
+
+      <!-- Order Confirmation Receipt (Hidden until placed) -->
+      <section id="orderSuccessSection" class="d-none border border-vera p-4 p-md-5 mb-5">
+        <div class="font-display ls-wide text-success small mb-2">Order Confirmed</div>
+        <h2 class="font-display ls-editorial fs-4 fw-normal mb-2">Thank You For Your Order</h2>
+        <p class="text-muted-vera small mb-4">
+          Your order <strong id="confOrderId" class="font-mono-num text-black"></strong> is now being prepared at our Mumbai atelier.
+        </p>
+        <div id="confDetails" class="border-top border-bottom border-vera py-3 mb-4 small"></div>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="account.html#orders" class="btn btn-vera-primary">Track Order in Account</a>
+          <a href="products.html" class="btn btn-vera-outline">Return to Storefront</a>
+        </div>
+      </section>
+
+      <!-- Bag + Checkout Workspace -->
+      <div id="cartWorkspace" class="row g-5">
+        <!-- Left: Bag Items + Multi-Step Checkout -->
+        <div class="col-12 col-lg-8">
+          <div id="cartItemsContainer" class="mb-5"></div>
+
+          <!-- Integrated Multi-Step Checkout Form -->
+          <div id="checkoutModule" class="border border-vera p-4 d-none">
+            <div class="checkout-step-bar mb-4">
+              <button type="button" class="checkout-step-tab active" id="stepTab1">01. Delivery Address (India)</button>
+              <button type="button" class="checkout-step-tab" id="stepTab2">02. Payment Method</button>
+            </div>
+
+            <form id="checkoutForm" novalidate>
+              <!-- Step 1: Delivery Address -->
+              <div id="checkoutStep1">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="chkName" class="form-label font-display ls-editorial small">Full Name</label>
+                    <input type="text" class="form-control" id="chkName" required placeholder="Ananya Sharma" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="chkEmail" class="form-label font-display ls-editorial small">Email Address</label>
+                    <input type="email" class="form-control" id="chkEmail" required placeholder="name@example.in" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="chkPhone" class="form-label font-display ls-editorial small">Mobile Number (+91)</label>
+                    <input type="tel" class="form-control font-mono-num" id="chkPhone" required placeholder="+91 98201 44510" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="chkPin" class="form-label font-display ls-editorial small">PIN Code (6 Digits)</label>
+                    <input type="text" class="form-control font-mono-num" id="chkPin" maxlength="6" pattern="\d{6}" required placeholder="400026" />
+                  </div>
+                  <div class="col-12">
+                    <label for="chkAddress" class="form-label font-display ls-editorial small">Street Address / Flat / Landmark</label>
+                    <input type="text" class="form-control" id="chkAddress" required placeholder="14B Altamount Road, Kemps Corner" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="chkCity" class="form-label font-display ls-editorial small">City</label>
+                    <input type="text" class="form-control" id="chkCity" required placeholder="Mumbai" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="chkState" class="form-label font-display ls-editorial small">State / UT</label>
+                    <select class="form-select" id="chkState" required>
+                      <option value="Maharashtra">Maharashtra</option>
+                      <option value="Delhi">Delhi</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="West Bengal">West Bengal</option>
+                      <option value="Rajasthan">Rajasthan</option>
+                      <option value="Kerala">Kerala</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mt-4 d-flex justify-content-end">
+                  <button type="button" id="toStep2Btn" class="btn btn-vera-primary">Continue to Payment</button>
+                </div>
+              </div>
+
+              <!-- Step 2: Payment Method -->
+              <div id="checkoutStep2" class="d-none">
+                <div class="d-flex flex-column gap-3 mb-4">
+                  <label class="border border-vera p-3 d-flex align-items-start gap-3 cursor-pointer">
+                    <input class="form-check-input mt-1" type="radio" name="paymentMode" value="UPI" checked />
+                    <div class="flex-fill">
+                      <div class="font-display ls-editorial small fw-medium">UPI (GPay / PhonePe / BHIM)</div>
+                      <div class="small text-muted-vera mb-2">Instant zero-fee verification</div>
+                      <input type="text" id="upiIdInput" class="form-control form-control-sm" placeholder="username@okicici" value="ananya@okhdfcbank" />
+                    </div>
+                  </label>
+
+                  <label class="border border-vera p-3 d-flex align-items-start gap-3 cursor-pointer">
+                    <input class="form-check-input mt-1" type="radio" name="paymentMode" value="Card" />
+                    <div class="flex-fill">
+                      <div class="font-display ls-editorial small fw-medium">Credit / Debit Card</div>
+                      <div class="small text-muted-vera">Visa, Mastercard, RuPay &amp; Amex</div>
+                    </div>
+                  </label>
+
+                  <label class="border border-vera p-3 d-flex align-items-start gap-3 cursor-pointer">
+                    <input class="form-check-input mt-1" type="radio" name="paymentMode" value="COD" />
+                    <div class="flex-fill">
+                      <div class="font-display ls-editorial small fw-medium">Cash on Delivery (COD)</div>
+                      <div class="small text-muted-vera">Pay via cash or UPI QR at your doorstep across India</div>
+                    </div>
+                  </label>
+                </div>
+
+                <div id="checkoutError" class="text-danger small mb-3 d-none"></div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <button type="button" id="backToStep1Btn" class="btn btn-vera-outline">Back to Address</button>
+                  <button type="submit" class="btn btn-vera-primary px-5">Place Order</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right: Summary & Promo Code -->
+        <div class="col-12 col-lg-4">
+          <div class="border border-vera p-4 sticky-top" style="top:88px;">
+            <div class="font-display ls-editorial fs-6 border-bottom border-vera pb-3 mb-3">Order Summary</div>
+
+            <div class="mb-4">
+              <label for="promoInput" class="form-label font-display ls-editorial text-muted-vera" style="font-size:10px;">Promo Code (Try: VERA10 or FIRST15)</label>
+              <div class="input-group">
+                <input type="text" id="promoInput" class="form-control text-uppercase" placeholder="ENTER CODE" />
+                <button type="button" id="applyPromoBtn" class="btn btn-vera-outline">Apply</button>
+              </div>
+              <div id="promoMsg" class="small mt-2"></div>
+            </div>
+
+            <div class="d-flex flex-column gap-2 small pb-3 border-bottom border-vera">
+              <div class="d-flex justify-content-between">
+                <span class="text-muted-vera">Subtotal</span>
+                <span id="sumSubtotal" class="font-mono-num">₹ 0.00</span>
+              </div>
+              <div id="sumDiscountRow" class="d-flex justify-content-between text-success d-none">
+                <span>Promo Discount (<span id="sumPromoLabel"></span>)</span>
+                <span id="sumDiscount" class="font-mono-num">- ₹ 0.00</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted-vera">Estimated GST (12% incl.)</span>
+                <span id="sumGst" class="font-mono-num">₹ 0.00</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted-vera">Delivery (India)</span>
+                <span id="sumShipping" class="font-mono-num">₹ 0.00</span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center pt-3 mb-3">
+              <span class="font-display ls-editorial">Total</span>
+              <span id="sumTotal" class="font-mono-num fs-5 fw-medium">₹ 0.00</span>
+            </div>
+
+            <p class="small text-muted-vera mb-0">
+              Complimentary express shipping across India on orders over ₹ 5,000.00.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="vera-footer">
+      <div class="container-fluid px-3 px-md-5 d-flex flex-wrap justify-content-between align-items-center gap-2 small text-muted-vera">
+        <span>© 2026 VÉRA Fashion India Pvt. Ltd.</span>
+        <a href="admin-dashboard.html" class="text-decoration-none text-muted-vera font-display ls-editorial" style="font-size:10px;">Atelier Admin Panel</a>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const cartContainer = document.getElementById('cartItemsContainer');
+        const checkoutModule = document.getElementById('checkoutModule');
+        const promoInput = document.getElementById('promoInput');
+        const promoMsg = document.getElementById('promoMsg');
+
+        // Pre-fill from active user if signed in
+        const user = VERA.getCurrentUser();
+        if (user) {
+          document.getElementById('chkName').value = user.name || '';
+          document.getElementById('chkEmail').value = user.email || '';
+          document.getElementById('chkPhone').value = user.phone || '';
+          if (user.addresses && user.addresses.length) {
+            const a = user.addresses[0];
+            document.getElementById('chkAddress').value = a.line1 || '';
+            document.getElementById('chkCity').value = a.city || '';
+            document.getElementById('chkState').value = a.state || 'Maharashtra';
+            document.getElementById('chkPin').value = a.pin || '';
+          }
+        }
+
+        function renderCart() {
+          const cart = VERA.getCart();
+          const totals = VERA.calculateCartTotals();
+
+          document.getElementById('sumSubtotal').textContent = VERA.formatINR(totals.subtotal);
+          document.getElementById('sumGst').textContent = VERA.formatINR(totals.gstIncluded);
+          document.getElementById('sumShipping').textContent =
+            totals.subtotal === 0 ? '₹ 0.00' : totals.shipping === 0 ? 'COMPLIMENTARY' : VERA.formatINR(totals.shipping);
+          document.getElementById('sumTotal').textContent = VERA.formatINR(totals.total);
+
+          const discountRow = document.getElementById('sumDiscountRow');
+          if (totals.discount > 0) {
+            discountRow.classList.remove('d-none');
+            document.getElementById('sumPromoLabel').textContent = totals.promo;
+            document.getElementById('sumDiscount').textContent = '- ' + VERA.formatINR(totals.discount);
+            promoInput.value = totals.promo;
+          } else {
+            discountRow.classList.add('d-none');
+          }
+
+          if (cart.length === 0) {
+            checkoutModule.classList.add('d-none');
+            cartContainer.innerHTML =
+              '<div class="border border-vera p-5 text-center">' +
+              '<p class="font-display ls-editorial mb-3">Your Shopping Bag Is Empty</p>' +
+              '<a href="products.html" class="btn btn-vera-primary">Explore Collections</a>' +
+              '</div>';
+            return;
+          }
+
+          checkoutModule.classList.remove('d-none');
+          cartContainer.innerHTML = cart
+            .map(
+              (item) =>
+                '<div class="border border-vera p-3 mb-3 d-flex gap-3 align-items-center">' +
+                '  <a href="product-detail.html?id=' +
+                encodeURIComponent(item.productId) +
+                '" class="flex-shrink-0" style="width:90px;aspect-ratio:3/4;overflow:hidden;border:1px solid #e5e5e5;">' +
+                '    <img src="' +
+                VERA.escapeHTML(item.image) +
+                '" alt="' +
+                VERA.escapeHTML(item.name) +
+                '" class="w-100 h-100 object-fit-cover" referrerpolicy="no-referrer" />' +
+                '  </a>' +
+                '  <div class="flex-fill min-w-0">' +
+                '    <div class="font-display ls-editorial small mb-1">' +
+                VERA.escapeHTML(item.name) +
+                '</div>' +
+                '    <div class="small text-muted-vera mb-2">Size: ' +
+                VERA.escapeHTML(item.size) +
+                ' · Colour: ' +
+                VERA.escapeHTML(item.color) +
+                '</div>' +
+                '    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">' +
+                '      <div class="qty-stepper">' +
+                '        <button type="button" data-qty-delta="-1" data-pid="' +
+                VERA.escapeHTML(item.productId) +
+                '" data-size="' +
+                VERA.escapeHTML(item.size) +
+                '" aria-label="Decrease quantity">−</button>' +
+                '        <span>' +
+                item.qty +
+                '</span>' +
+                '        <button type="button" data-qty-delta="1" data-pid="' +
+                VERA.escapeHTML(item.productId) +
+                '" data-size="' +
+                VERA.escapeHTML(item.size) +
+                '" aria-label="Increase quantity">+</button>' +
+                '      </div>' +
+                '      <div class="d-flex align-items-center gap-3">' +
+                '        <span class="font-mono-num small">' +
+                VERA.formatINR(item.price * item.qty) +
+                '</span>' +
+                '        <button type="button" class="btn btn-link text-muted-vera p-0 small text-decoration-underline" data-remove-item data-pid="' +
+                VERA.escapeHTML(item.productId) +
+                '" data-size="' +
+                VERA.escapeHTML(item.size) +
+                '">Remove</button>' +
+                '      </div>' +
+                '    </div>' +
+                '  </div>' +
+                '</div>'
+            )
+            .join('');
+        }
+
+        cartContainer.addEventListener('click', (e) => {
+          const qtyBtn = e.target.closest('[data-qty-delta]');
+          if (qtyBtn) {
+            const delta = Number(qtyBtn.getAttribute('data-qty-delta'));
+            const pid = qtyBtn.getAttribute('data-pid');
+            const sz = qtyBtn.getAttribute('data-size');
+            VERA.updateCartQty(pid, sz, delta);
+            renderCart();
+            return;
+          }
+
+          const remBtn = e.target.closest('[data-remove-item]');
+          if (remBtn) {
+            VERA.removeFromCart(remBtn.getAttribute('data-pid'), remBtn.getAttribute('data-size'));
+            renderCart();
+          }
+        });
+
+        document.getElementById('applyPromoBtn').addEventListener('click', () => {
+          const res = VERA.setPromoCode(promoInput.value);
+          if (res.valid) {
+            promoMsg.className = 'small mt-2 text-success';
+            promoMsg.textContent = 'Promo code ' + res.code + ' applied.';
+          } else {
+            promoMsg.className = 'small mt-2 text-danger';
+            promoMsg.textContent = 'Invalid code. Try VERA10 or FIRST15.';
+          }
+          renderCart();
+        });
+
+        // Multi-step Checkout Navigation
+        const step1 = document.getElementById('checkoutStep1');
+        const step2 = document.getElementById('checkoutStep2');
+        const tab1 = document.getElementById('stepTab1');
+        const tab2 = document.getElementById('stepTab2');
+
+        document.getElementById('toStep2Btn').addEventListener('click', () => {
+          const name = document.getElementById('chkName').value.trim();
+          const email = document.getElementById('chkEmail').value.trim();
+          const phone = document.getElementById('chkPhone').value.trim();
+          const pin = document.getElementById('chkPin').value.trim();
+          const address = document.getElementById('chkAddress').value.trim();
+          const city = document.getElementById('chkCity').value.trim();
+
+          if (!name || !email || !phone || !address || !city || !/^\d{6}$/.test(pin)) {
+            VERA.showToast('Please enter a valid address and 6-digit PIN code');
+            return;
+          }
+
+          step1.classList.add('d-none');
+          step2.classList.remove('d-none');
+          tab1.classList.remove('active');
+          tab2.classList.add('active');
+        });
+
+        document.getElementById('backToStep1Btn').addEventListener('click', () => {
+          step2.classList.add('d-none');
+          step1.classList.remove('d-none');
+          tab2.classList.remove('active');
+          tab1.classList.add('active');
+        });
+
+        document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (VERA.getCart().length === 0) return;
+
+          const paymentMode = document.querySelector('input[name="paymentMode"]:checked')?.value || 'UPI';
+          const order = VERA.createOrder({
+            customerName: document.getElementById('chkName').value.trim(),
+            customerEmail: document.getElementById('chkEmail').value.trim(),
+            phone: document.getElementById('chkPhone').value.trim(),
+            address: document.getElementById('chkAddress').value.trim(),
+            city: document.getElementById('chkCity').value.trim(),
+            state: document.getElementById('chkState').value,
+            pin: document.getElementById('chkPin').value.trim(),
+            paymentMethod: paymentMode
+          });
+
+          document.getElementById('cartWorkspace').classList.add('d-none');
+          const successBox = document.getElementById('orderSuccessSection');
+          successBox.classList.remove('d-none');
+          document.getElementById('confOrderId').textContent = order.id;
+          document.getElementById('confDetails').innerHTML =
+            '<div class="row g-2">' +
+            '  <div class="col-md-4"><span class="text-muted-vera d-block">Recipient</span>' + VERA.escapeHTML(order.customerName) + '</div>' +
+            '  <div class="col-md-4"><span class="text-muted-vera d-block">Destination</span>' + VERA.escapeHTML(order.city) + ', ' + VERA.escapeHTML(order.state) + ' — ' + VERA.escapeHTML(order.pin) + '</div>' +
+            '  <div class="col-md-4"><span class="text-muted-vera d-block">Payment &amp; Total</span>' + VERA.escapeHTML(order.paymentMethod) + ' · <strong class="font-mono-num">' + VERA.formatINR(order.total) + '</strong></div>' +
+            '</div>';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        renderCart();
+      });
+    </script>
+  </body>
+</html>

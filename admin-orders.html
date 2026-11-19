@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VÉRA Atelier Admin — Orders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="adminShell" class="admin-shell">
+      <aside class="admin-sidebar">
+        <div>
+          <div class="p-4 border-bottom d-flex justify-content-between align-items-center" style="border-color: var(--admin-border) !important;">
+            <div>
+              <div class="vera-brand admin-brand-word fs-5">VÉRA</div>
+              <div class="admin-brand-sub font-display ls-wide text-muted-vera mt-1" style="font-size:9px;">Atelier Console</div>
+            </div>
+            <button type="button" id="adminSidebarToggle" class="btn btn-link p-0 text-reset" aria-label="Toggle sidebar">
+              <i class="bi bi-layout-sidebar"></i>
+            </button>
+          </div>
+          <nav class="mt-2">
+            <a href="admin-dashboard.html" class="admin-nav-link"><i class="bi bi-speedometer2"></i><span class="admin-nav-label">Dashboard</span></a>
+            <a href="admin-products.html" class="admin-nav-link"><i class="bi bi-box-seam"></i><span class="admin-nav-label">Products</span></a>
+            <a href="admin-add-product.html" class="admin-nav-link"><i class="bi bi-plus-square"></i><span class="admin-nav-label">Add Product</span></a>
+            <a href="admin-orders.html" class="admin-nav-link active"><i class="bi bi-receipt"></i><span class="admin-nav-label">Orders</span></a>
+            <a href="admin-customers.html" class="admin-nav-link"><i class="bi bi-people"></i><span class="admin-nav-label">Customers</span></a>
+          </nav>
+        </div>
+        <div class="p-3 border-top" style="border-color: var(--admin-border) !important;">
+          <a href="index.html" class="admin-nav-link px-2">
+            <i class="bi bi-arrow-up-right-square"></i>
+            <span class="admin-nav-label">View Live Store</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="adminMobileNav">
+        <div class="offcanvas-header border-bottom" style="border-color: var(--admin-border) !important;">
+          <span class="vera-brand fs-5">VÉRA ADMIN</span>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+          <a href="admin-dashboard.html" class="admin-nav-link">Dashboard</a>
+          <a href="admin-products.html" class="admin-nav-link">Products</a>
+          <a href="admin-add-product.html" class="admin-nav-link">Add Product</a>
+          <a href="admin-orders.html" class="admin-nav-link active">Orders</a>
+          <a href="admin-customers.html" class="admin-nav-link">Customers</a>
+          <a href="index.html" class="admin-nav-link border-top">View Live Store</a>
+        </div>
+      </div>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div class="d-flex align-items-center gap-3">
+            <button type="button" class="btn btn-vera-subtle d-lg-none px-2 py-1" data-bs-toggle="offcanvas" data-bs-target="#adminMobileNav">
+              <i class="bi bi-list"></i>
+            </button>
+            <h1 class="font-display ls-editorial fs-6 fw-normal mb-0">Order Management</h1>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" id="adminThemeToggle" class="btn btn-vera-subtle px-3 py-1"></button>
+            <a href="account.html#orders" class="btn btn-vera-outline px-3 py-1">Client Order View</a>
+          </div>
+        </header>
+
+        <main class="p-4 p-lg-5 flex-fill">
+          <div class="admin-card mb-4">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-5">
+                <input type="search" id="orderSearchInput" class="form-control" placeholder="Search by Order ID, Client, or City..." />
+              </div>
+              <div class="col-md-7 d-flex flex-wrap gap-2" id="orderStatusTabs">
+                <button type="button" class="btn btn-vera-subtle active" data-status-filter="ALL">All</button>
+                <button type="button" class="btn btn-vera-subtle" data-status-filter="Processing">Processing</button>
+                <button type="button" class="btn btn-vera-subtle" data-status-filter="Shipped">Shipped</button>
+                <button type="button" class="btn btn-vera-subtle" data-status-filter="Delivered">Delivered</button>
+                <button type="button" class="btn btn-vera-subtle" data-status-filter="Cancelled">Cancelled</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>City</th>
+                    <th>Items</th>
+                    <th>Payment</th>
+                    <th>Total (₹)</th>
+                    <th>Status Control</th>
+                    <th class="text-end">Details</th>
+                  </tr>
+                </thead>
+                <tbody id="adminOrdersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content p-4">
+          <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3" style="border-color: var(--admin-border) !important;">
+            <div class="font-display ls-editorial fs-6" id="modalOrderId">Order Details</div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div id="modalOrderBody"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let statusFilter = 'ALL';
+        const searchInput = document.getElementById('orderSearchInput');
+        const tbody = document.getElementById('adminOrdersBody');
+        const detailModal = new bootstrap.Modal(document.getElementById('orderDetailModal'));
+
+        function renderOrders() {
+          const q = searchInput.value.trim().toLowerCase();
+          const orders = VERA.getOrders().filter((o) => {
+            const matchStatus = statusFilter === 'ALL' || o.status === statusFilter;
+            const matchQ =
+              !q ||
+              o.id.toLowerCase().includes(q) ||
+              o.customerName.toLowerCase().includes(q) ||
+              o.city.toLowerCase().includes(q);
+            return matchStatus && matchQ;
+          });
+
+          if (orders.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5 text-muted-vera">No orders found.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = orders
+            .map((o) => {
+              const itemCount = o.items.reduce((s, i) => s + i.qty, 0);
+              const statuses = ['Processing', 'Shipped', 'Delivered', 'Cancelled'];
+              const optionsHtml = statuses
+                .map(
+                  (st) =>
+                    '<option value="' + st + '" ' + (o.status === st ? 'selected' : '') + '>' + st + '</option>'
+                )
+                .join('');
+
+              return (
+                '<tr>' +
+                '  <td class="font-mono-num small">' + VERA.escapeHTML(o.id) + '</td>' +
+                '  <td><div>' + VERA.escapeHTML(o.customerName) + '</div><div class="small text-muted-vera">' + VERA.escapeHTML(o.customerEmail) + '</div></td>' +
+                '  <td>' + VERA.escapeHTML(o.city) + ' <span class="font-mono-num small text-muted-vera">' + VERA.escapeHTML(o.pin) + '</span></td>' +
+                '  <td class="font-mono-num">' + itemCount + '</td>' +
+                '  <td class="small">' + VERA.escapeHTML(o.paymentMethod) + '</td>' +
+                '  <td class="font-mono-num">' + VERA.formatINR(o.total) + '</td>' +
+                '  <td>' +
+                '    <select class="form-select form-select-sm" style="min-width:130px;" data-status-select="' + VERA.escapeHTML(o.id) + '">' +
+                optionsHtml +
+                '    </select>' +
+                '  </td>' +
+                '  <td class="text-end">' +
+                '    <button type="button" class="btn btn-vera-subtle px-2 py-1" data-view-order="' + VERA.escapeHTML(o.id) + '">View</button>' +
+                '  </td>' +
+                '</tr>'
+              );
+            })
+            .join('');
+        }
+
+        document.getElementById('orderStatusTabs').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-status-filter]');
+          if (!btn) return;
+          statusFilter = btn.getAttribute('data-status-filter');
+          document.querySelectorAll('[data-status-filter]').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderOrders();
+        });
+
+        tbody.addEventListener('change', (e) => {
+          const sel = e.target.closest('[data-status-select]');
+          if (!sel) return;
+          const orderId = sel.getAttribute('data-status-select');
+          VERA.updateOrderStatus(orderId, sel.value);
+          VERA.showToast('Order ' + orderId + ' marked ' + sel.value);
+        });
+
+        tbody.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-view-order]');
+          if (!btn) return;
+          const order = VERA.getOrders().find((o) => o.id === btn.getAttribute('data-view-order'));
+          if (!order) return;
+
+          document.getElementById('modalOrderId').textContent = order.id + ' · ' + order.status;
+          document.getElementById('modalOrderBody').innerHTML =
+            '<div class="row g-3 small mb-4">' +
+            '  <div class="col-md-6"><strong>Client:</strong> ' + VERA.escapeHTML(order.customerName) + '<br>' + VERA.escapeHTML(order.phone) + '<br>' + VERA.escapeHTML(order.customerEmail) + '</div>' +
+            '  <div class="col-md-6"><strong>Shipping Address:</strong><br>' + VERA.escapeHTML(order.address) + ', ' + VERA.escapeHTML(order.city) + ', ' + VERA.escapeHTML(order.state) + ' — ' + VERA.escapeHTML(order.pin) + '</div>' +
+            '</div>' +
+            '<div class="border-top border-bottom py-3 mb-3" style="border-color:var(--admin-border) !important;">' +
+            order.items
+              .map(
+                (i) =>
+                  '<div class="d-flex justify-content-between small py-1">' +
+                  '  <span>' + VERA.escapeHTML(i.name) + ' (' + VERA.escapeHTML(i.size) + ') × ' + i.qty + '</span>' +
+                  '  <span class="font-mono-num">' + VERA.formatINR(i.price * i.qty) + '</span>' +
+                  '</div>'
+              )
+              .join('') +
+            '</div>' +
+            '<div class="d-flex justify-content-between fw-medium"><span>Total (' + VERA.escapeHTML(order.paymentMethod) + ')</span><span class="font-mono-num">' + VERA.formatINR(order.total) + '</span></div>';
+          detailModal.show();
+        });
+
+        searchInput.addEventListener('input', renderOrders);
+        renderOrders();
+      });
+    </script>
+  </body>
+</html>

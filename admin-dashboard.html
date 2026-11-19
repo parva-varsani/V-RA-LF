@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VÉRA Atelier Admin — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="adminShell" class="admin-shell">
+      <!-- Persistent Collapsible Sidebar -->
+      <aside class="admin-sidebar">
+        <div>
+          <div class="p-4 border-bottom border-vera d-flex justify-content-between align-items-center" style="border-color: var(--admin-border) !important;">
+            <div>
+              <div class="vera-brand admin-brand-word fs-5">VÉRA</div>
+              <div class="admin-brand-sub font-display ls-wide text-muted-vera mt-1" style="font-size:9px;">Atelier Console</div>
+            </div>
+            <button type="button" id="adminSidebarToggle" class="btn btn-link p-0 text-reset" aria-label="Toggle sidebar">
+              <i class="bi bi-layout-sidebar"></i>
+            </button>
+          </div>
+          <nav class="mt-2">
+            <a href="admin-dashboard.html" class="admin-nav-link active"><i class="bi bi-speedometer2"></i><span class="admin-nav-label">Dashboard</span></a>
+            <a href="admin-products.html" class="admin-nav-link"><i class="bi bi-box-seam"></i><span class="admin-nav-label">Products</span></a>
+            <a href="admin-add-product.html" class="admin-nav-link"><i class="bi bi-plus-square"></i><span class="admin-nav-label">Add Product</span></a>
+            <a href="admin-orders.html" class="admin-nav-link"><i class="bi bi-receipt"></i><span class="admin-nav-label">Orders</span></a>
+            <a href="admin-customers.html" class="admin-nav-link"><i class="bi bi-people"></i><span class="admin-nav-label">Customers</span></a>
+          </nav>
+        </div>
+        <div class="p-3 border-top" style="border-color: var(--admin-border) !important;">
+          <a href="index.html" class="admin-nav-link px-2">
+            <i class="bi bi-arrow-up-right-square"></i>
+            <span class="admin-nav-label">View Live Store</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Mobile Sidebar Offcanvas -->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="adminMobileNav">
+        <div class="offcanvas-header border-bottom" style="border-color: var(--admin-border) !important;">
+          <span class="vera-brand fs-5">VÉRA ADMIN</span>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+          <a href="admin-dashboard.html" class="admin-nav-link active">Dashboard</a>
+          <a href="admin-products.html" class="admin-nav-link">Products</a>
+          <a href="admin-add-product.html" class="admin-nav-link">Add Product</a>
+          <a href="admin-orders.html" class="admin-nav-link">Orders</a>
+          <a href="admin-customers.html" class="admin-nav-link">Customers</a>
+          <a href="index.html" class="admin-nav-link border-top">View Live Store</a>
+        </div>
+      </div>
+
+      <!-- Main Viewport -->
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div class="d-flex align-items-center gap-3">
+            <button type="button" class="btn btn-vera-subtle d-lg-none px-2 py-1" data-bs-toggle="offcanvas" data-bs-target="#adminMobileNav">
+              <i class="bi bi-list"></i>
+            </button>
+            <h1 class="font-display ls-editorial fs-6 fw-normal mb-0">Overview &amp; Analytics</h1>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" id="adminThemeToggle" class="btn btn-vera-subtle px-3 py-1"></button>
+            <a href="index.html" class="btn btn-vera-primary px-3 py-1 d-none d-sm-inline-flex align-items-center gap-1">
+              <span>Live Store</span> <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+        </header>
+
+        <main class="p-4 p-lg-5 flex-fill">
+          <!-- KPI Metric Cards -->
+          <div class="row g-4 mb-5">
+            <div class="col-6 col-xl-3">
+              <div class="admin-card h-100">
+                <div class="admin-kpi-label">Total Revenue (INR)</div>
+                <div id="kpiRevenue" class="admin-kpi-value">₹ 0.00</div>
+                <div class="small text-muted-vera mt-2">Net settled &amp; active orders</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="admin-card h-100">
+                <div class="admin-kpi-label">Total Orders</div>
+                <div id="kpiOrders" class="admin-kpi-value">0</div>
+                <div id="kpiProcessing" class="small text-muted-vera mt-2">0 processing</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="admin-card h-100">
+                <div class="admin-kpi-label">Active Products</div>
+                <div id="kpiProducts" class="admin-kpi-value">0</div>
+                <div class="small text-muted-vera mt-2">Across 4 departments</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="admin-card h-100">
+                <div class="admin-kpi-label">Low Stock Alerts</div>
+                <div id="kpiLowStock" class="admin-kpi-value">0</div>
+                <div class="small text-muted-vera mt-2">Pieces with &le; 5 units</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly Sales Chart + Department Split -->
+          <div class="row g-4 mb-5">
+            <div class="col-12 col-xl-8">
+              <div class="admin-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <div>
+                    <div class="admin-kpi-label">Revenue Trajectory</div>
+                    <h2 class="font-display ls-editorial fs-6 fw-normal mb-0 mt-1">Monthly Sales (₹ INR)</h2>
+                  </div>
+                  <span id="chartHoverReadout" class="font-mono-num small text-muted-vera">Hover bar to inspect</span>
+                </div>
+                <div class="vera-chart-wrap">
+                  <div id="salesBarGrid" class="vera-chart-grid"></div>
+                  <div id="salesBarLabels" class="vera-chart-labels"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="admin-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <div class="admin-kpi-label">Catalog Mix</div>
+                  <h2 class="font-display ls-editorial fs-6 fw-normal mb-4 mt-1">Department Distribution</h2>
+                  <div id="deptBreakdown" class="d-flex flex-column gap-3"></div>
+                </div>
+                <div class="pt-3 mt-4 border-top" style="border-color: var(--admin-border) !important;">
+                  <a href="admin-add-product.html" class="btn btn-vera-primary w-100">Add New Product</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Orders Summary Table -->
+          <div class="admin-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <div class="admin-kpi-label">Fulfillment Feed</div>
+                <h2 class="font-display ls-editorial fs-6 fw-normal mb-0 mt-1">Recent Orders</h2>
+              </div>
+              <a href="admin-orders.html" class="font-display ls-editorial small text-reset text-decoration-underline">Manage All Orders</a>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Client</th>
+                    <th>City</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th class="text-end">Total (₹)</th>
+                  </tr>
+                </thead>
+                <tbody id="recentOrdersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const products = VERA.getProducts();
+        const orders = VERA.getOrders();
+
+        const validOrders = orders.filter((o) => o.status !== 'Cancelled');
+        const totalRevenue = validOrders.reduce((s, o) => s + Number(o.total || 0), 0);
+        const processingCount = orders.filter((o) => o.status === 'Processing').length;
+        const lowStockCount = products.filter((p) => Number(p.stock) <= 5).length;
+
+        document.getElementById('kpiRevenue').textContent = VERA.formatINR(totalRevenue);
+        document.getElementById('kpiOrders').textContent = String(orders.length);
+        document.getElementById('kpiProcessing').textContent = processingCount + ' awaiting dispatch';
+        document.getElementById('kpiProducts').textContent = String(products.length);
+        document.getElementById('kpiLowStock').textContent = String(lowStockCount);
+
+        // Monthly Chart (Jun–Nov 2026) incorporating live November order totals
+        const novRevenue = orders
+          .filter((o) => o.status !== 'Cancelled' && new Date(o.createdAt).getMonth() === 10)
+          .reduce((s, o) => s + o.total, 0);
+
+        const monthlyData = [
+          { month: 'JUN', value: 42800 },
+          { month: 'JUL', value: 51400 },
+          { month: 'AUG', value: 48900 },
+          { month: 'SEP', value: 64200 },
+          { month: 'OCT', value: 78500 },
+          { month: 'NOV', value: Math.max(32000, novRevenue) }
+        ];
+
+        const maxVal = Math.max(...monthlyData.map((d) => d.value), 1);
+        const barGrid = document.getElementById('salesBarGrid');
+        const barLabels = document.getElementById('salesBarLabels');
+        const readout = document.getElementById('chartHoverReadout');
+
+        barGrid.innerHTML = monthlyData
+          .map((d) => {
+            const pct = Math.max(12, Math.round((d.value / maxVal) * 85));
+            return (
+              '<div class="vera-chart-col">' +
+              '  <div class="vera-chart-val">₹' + Math.round(d.value / 1000) + 'k</div>' +
+              '  <div class="vera-chart-bar" style="height:' + pct + '%;" data-month="' + d.month + '" data-amount="' + d.value + '"></div>' +
+              '</div>'
+            );
+          })
+          .join('');
+
+        barLabels.innerHTML = monthlyData.map((d) => '<div>' + d.month + '</div>').join('');
+
+        barGrid.querySelectorAll('.vera-chart-bar').forEach((bar) => {
+          bar.addEventListener('mouseenter', () => {
+            readout.textContent =
+              bar.getAttribute('data-month') + ' 2026 — ' + VERA.formatINR(bar.getAttribute('data-amount'));
+          });
+        });
+
+        // Department Breakdown
+        const cats = ['WOMAN', 'MAN', 'KIDS', 'PERFUMES'];
+        document.getElementById('deptBreakdown').innerHTML = cats
+          .map((cat) => {
+            const count = products.filter((p) => p.category === cat).length;
+            const pct = products.length ? Math.round((count / products.length) * 100) : 0;
+            return (
+              '<div>' +
+              '  <div class="d-flex justify-content-between small mb-1">' +
+              '    <span class="font-display ls-editorial">' + cat + '</span>' +
+              '    <span class="font-mono-num">' + count + ' SKUs (' + pct + '%)</span>' +
+              '  </div>' +
+              '  <div style="height:4px;background:var(--admin-bar-track);"><div style="height:100%;width:' + pct + '%;background:var(--admin-bar-fill);"></div></div>' +
+              '</div>'
+            );
+          })
+          .join('');
+
+        // Recent Orders
+        document.getElementById('recentOrdersBody').innerHTML = orders
+          .slice(0, 6)
+          .map(
+            (o) =>
+              '<tr>' +
+              '  <td class="font-mono-num">' + VERA.escapeHTML(o.id) + '</td>' +
+              '  <td>' + VERA.escapeHTML(o.customerName) + '</td>' +
+              '  <td>' + VERA.escapeHTML(o.city) + '</td>' +
+              '  <td>' + VERA.escapeHTML(o.paymentMethod) + '</td>' +
+              '  <td><span class="status-label status-' + o.status.toLowerCase() + '">' + VERA.escapeHTML(o.status) + '</span></td>' +
+              '  <td class="text-end font-mono-num">' + VERA.formatINR(o.total) + '</td>' +
+              '</tr>'
+          )
+          .join('');
+      });
+    </script>
+  </body>
+</html>
