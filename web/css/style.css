@@ -1,0 +1,743 @@
+:root {
+  --vera-bg: #ffffff;
+  --vera-surface: #f7f7f7;
+  --vera-ink: #000000;
+  --vera-muted: #666666;
+  --vera-border: #e5e5e5;
+  --vera-danger: #b91c1c;
+  --vera-success: #15803d;
+  --vera-warning: #b45309;
+  --font-display: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--vera-bg);
+  color: var(--vera-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.btn,
+.form-control,
+.form-select,
+.input-group-text,
+.card,
+.modal-content,
+.offcanvas,
+.accordion-item,
+.accordion-button,
+.alert,
+.nav-tabs .nav-link,
+.table {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: 1px solid var(--vera-ink);
+  border-color: var(--vera-ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.ls-editorial {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ls-wide {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.text-muted-vera {
+  color: var(--vera-muted);
+}
+
+.border-vera {
+  border-color: var(--vera-border) !important;
+}
+
+.btn-vera-primary {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  white-space: nowrap;
+}
+
+.btn-vera-primary:hover {
+  background-color: #222222;
+  border-color: #222222;
+  color: #ffffff;
+}
+
+.btn-vera-outline {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #000000;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  white-space: nowrap;
+}
+
+.btn-vera-outline:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.btn-vera-subtle {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid var(--vera-border);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  white-space: nowrap;
+}
+
+.btn-vera-subtle:hover,
+.btn-vera-subtle.active {
+  border-color: #000000;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.btn-vera-hero {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 14px 34px;
+  white-space: nowrap;
+}
+
+.btn-vera-hero:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.vera-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background-color: #ffffff;
+  color: #000000;
+  border-bottom: 1px solid var(--vera-border);
+}
+
+.vera-header.header-transparent {
+  background-color: transparent;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent);
+  color: #ffffff;
+  border-bottom-color: transparent;
+}
+
+.vera-header.header-transparent.is-scrolled {
+  background-color: #ffffff;
+  background-image: none;
+  color: #000000;
+  border-bottom-color: var(--vera-border);
+}
+
+.vera-header a,
+.vera-header button {
+  color: inherit;
+  text-decoration: none;
+}
+
+.vera-brand {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.vera-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.vera-nav-link {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 4px 0;
+}
+
+.vera-nav-link.active,
+.vera-nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.vera-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.vera-icon-btn {
+  background: transparent;
+  border: 0;
+  padding: 6px 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.page-offset {
+  padding-top: 60px;
+}
+
+.vera-hero {
+  position: relative;
+  width: 100%;
+  height: 92vh;
+  min-height: 580px;
+  max-height: 920px;
+  overflow: hidden;
+  background-color: #141414;
+}
+
+.vera-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.vera-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0.1) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 56px 40px;
+}
+
+.vera-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.1;
+  max-width: 720px;
+}
+
+.vera-hero-subtitle {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.editorial-split-card {
+  display: block;
+  overflow: hidden;
+  background-color: var(--vera-surface);
+  border: 1px solid var(--vera-border);
+  text-decoration: none;
+  color: inherit;
+}
+
+.editorial-split-media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: #efefef;
+}
+
+.editorial-split-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.editorial-banner-wide {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.editorial-banner-wide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.editorial-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+}
+
+.vera-product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.vera-product-media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  border: 1px solid var(--vera-border);
+}
+
+.vera-product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.vera-quick-add {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid var(--vera-border);
+  padding: 8px;
+}
+
+.vera-quick-size-btn {
+  background: transparent;
+  border: 1px solid var(--vera-border);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 500;
+  color: #000000;
+  padding: 4px 7px;
+  min-width: 28px;
+}
+
+.vera-quick-size-btn:hover {
+  border-color: #000000;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.vera-wishlist-icon-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--vera-border);
+  color: #000000;
+  z-index: 2;
+}
+
+.vera-wishlist-icon-btn.is-active,
+.vera-wishlist-icon-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.vera-product-meta {
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vera-product-kicker {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vera-muted);
+}
+
+.vera-product-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000000;
+  text-decoration: none;
+}
+
+.vera-product-title:hover {
+  text-decoration: underline;
+}
+
+.vera-product-price {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+
+.pdp-gallery-item {
+  aspect-ratio: 3 / 4;
+  background-color: #f4f4f4;
+  border: 1px solid var(--vera-border);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.pdp-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.pdp-sticky-panel {
+  position: sticky;
+  top: 88px;
+}
+
+.pdp-swatch {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #000000;
+  padding: 2px;
+  display: inline-block;
+}
+
+.pdp-swatch-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vera-accordion .accordion-item {
+  border: 0;
+  border-top: 1px solid var(--vera-border);
+  background: transparent;
+}
+
+.vera-accordion .accordion-item:last-child {
+  border-bottom: 1px solid var(--vera-border);
+}
+
+.vera-accordion .accordion-button {
+  background: transparent;
+  color: #000000;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 0;
+}
+
+.vera-footer {
+  border-top: 1px solid var(--vera-border);
+  background-color: #ffffff;
+  padding: 52px 0 32px 0;
+  margin-top: 72px;
+}
+
+.vera-footer-heading {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.vera-footer-link {
+  display: block;
+  font-size: 12px;
+  color: var(--vera-muted);
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.vera-footer-link:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.admin-shell {
+  --admin-bg: #ffffff;
+  --admin-surface: #fafafa;
+  --admin-sidebar-bg: #ffffff;
+  --admin-ink: #000000;
+  --admin-muted: #666666;
+  --admin-border: #e5e5e5;
+  --admin-hover: #f2f2f2;
+  --admin-bar-fill: #000000;
+  --admin-bar-track: #efefef;
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--admin-bg);
+  color: var(--admin-ink);
+}
+
+.admin-shell.admin-dark {
+  --admin-bg: #0f0f0f;
+  --admin-surface: #171717;
+  --admin-sidebar-bg: #121212;
+  --admin-ink: #f5f5f5;
+  --admin-muted: #9ca3af;
+  --admin-border: #2a2a2a;
+  --admin-hover: #222222;
+  --admin-bar-fill: #ffffff;
+  --admin-bar-track: #242424;
+}
+
+.admin-sidebar {
+  width: 256px;
+  flex-shrink: 0;
+  background-color: var(--admin-sidebar-bg);
+  border-right: 1px solid var(--admin-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.admin-shell.sidebar-collapsed .admin-sidebar {
+  width: 72px;
+}
+
+.admin-shell.sidebar-collapsed .admin-nav-label,
+.admin-shell.sidebar-collapsed .admin-brand-sub {
+  display: none;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 22px;
+  color: var(--admin-muted);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-nav-link:hover {
+  background-color: var(--admin-hover);
+  color: var(--admin-ink);
+}
+
+.admin-nav-link.active {
+  background-color: var(--admin-ink);
+  color: var(--admin-bg);
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--admin-bg);
+}
+
+.admin-topbar {
+  height: 60px;
+  border-bottom: 1px solid var(--admin-border);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-card {
+  background-color: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  padding: 22px;
+}
+
+.admin-kpi-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+}
+
+.admin-kpi-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.65rem;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--admin-ink);
+}
+
+.admin-table th {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+  border-bottom: 1px solid var(--admin-border);
+  padding: 12px 14px;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.admin-dark .form-control,
+.admin-dark .form-select {
+  background-color: var(--admin-surface);
+  color: var(--admin-ink);
+  border-color: var(--admin-border);
+}
+
+.admin-dark .btn-vera-primary {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.admin-dark .btn-vera-outline,
+.admin-dark .btn-vera-subtle {
+  color: var(--admin-ink);
+  border-color: var(--admin-border);
+}
+
+.vera-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: end;
+  height: 220px;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 8px;
+}
+
+.vera-chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.vera-chart-bar {
+  width: 100%;
+  max-width: 56px;
+  background-color: var(--admin-bar-fill);
+}
+
+.vera-chart-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--admin-muted);
+  margin-bottom: 6px;
+}
+
+.vera-chart-labels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding-top: 10px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+}
+
+.status-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.status-processing { color: var(--vera-warning); }
+.status-shipped { color: #1d4ed8; }
+.status-delivered { color: var(--vera-success); }
+.status-cancelled { color: var(--vera-danger); }
+
+@media (max-width: 991.98px) {
+  .vera-header {
+    padding: 0 16px;
+  }
+  .admin-sidebar {
+    display: none;
+  }
+}

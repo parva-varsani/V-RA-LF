@@ -23,8 +23,7 @@ public class RegisterServlet extends HttpServlet {
 
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "INSERT INTO users (name, email, password, phone, city) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO users (name, email, password, phone, city) VALUES (?, ?, ?, ?, ?)");
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, password);
@@ -32,10 +31,10 @@ public class RegisterServlet extends HttpServlet {
             ps.setString(5, city);
             ps.executeUpdate();
             con.close();
-            response.sendRedirect("login.jsp?registered=1");
+            response.sendRedirect("account.jsp?registered=1");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("login.jsp?regError=1");
+            response.sendRedirect("account.jsp?regError=1");
         }
     }
 }
